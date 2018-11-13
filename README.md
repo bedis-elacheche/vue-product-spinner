@@ -17,6 +17,9 @@
   <a href="https://opensource.org/licenses/MIT">
     <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="MIT License" />
   </a>
+  <a href="https://beerpay.io/micheleriva/vue-product-spinner">
+     <img src="https://beerpay.io/micheleriva/vue-product-spinner/badge.svg?style=flat" />
+  </a>
   <a href="https://twitter.com/intent/tweet?text=An%20amazing%20vue%20js%20component&url=https://github.com/micheleriva/vue-product-spinner&hashtags=vuejs,vue,spinner,3D,component">
     <img src="https://img.shields.io/twitter/url/http/shields.io.svg?style=social" alt="Tweet" />
   </a>
@@ -111,11 +114,11 @@ See also the list of [contributors](https://github.com/micheleriva/vue-product-s
 - [x] Add slider support
 - [x] Add touchscreen support
 
-# Buy Me a Coffee!
+# Buy Me a Beer!
 
-Please help me maintain my projects with a little and simple donation... I need coffee to work! 😃
+[![Beerpay](https://beerpay.io/micheleriva/vue-product-spinner/badge.svg?style=beer)](https://beerpay.io/micheleriva/vue-product-spinner)
 
-<a href="https://www.buymeacoffee.com/miiitch" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: 41px !important;width: 174px !important;box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;-webkit-box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;" ></a>
+Please help me maintain my projects with a little and simple donation! I need beer to work! 😃
 
 # License
 This project is licensed under the MIT License - see the [LICENSE.md]((/LICENSE.md)) file for details.
