@@ -1,8 +1,8 @@
 {
   "name": "vue-product-spinner",
-  "version": "0.0.7-dev",
+  "version": "0.0.10-dev",
   "private": false,
-  "main": "./src/components/VueProductSpinner.vue",
+  "main": "./dist/vue-product-spinner.common.js",
   "author": {
     "name": "Michele Riva",
     "email": "ciao@micheleriva.it",
@@ -13,6 +13,11 @@
       "name": "Sid Bentifraouine",
       "email": "sidbentifraouine@gmail.com",
       "url": "https://twitter.com/sbentifraouine"
+    }, 
+    {
+      "name": "Bedis ElAcheche",
+      "email": "d4rk-5c0rp@ubuntu.com",
+      "url": "https://github.com/bedis-elacheche"
     }
   ],
   "bugs": {
@@ -25,7 +30,8 @@
     "spinner",
     "carousel",
     "3d",
-    "product"
+    "product",
+    "component"
   ],
   "repository": {
     "type": "git",

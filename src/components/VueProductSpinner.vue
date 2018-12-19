@@ -1,28 +1,29 @@
 <template lang="pug">
 
-  #VueProductSpinnerImgRef.vue-product-spinner(
+  .vue-product-spinner(
     ref="mainDiv"
-    @touchstart="handleTouchStart"
-    @touchmove="handleTouchMove"
-    @tuochend="handleTouchEnd"
   )
-
-    img(
+    img#VueProductSpinnerImgRef(
       :src="currentImg", 
       draggable="false"
       @mousedown="handleMouseDown"
       @mouseup="handleMouseUp"
       @mousemove="handleMouseMove"
+      @mouseleave="handleMouseUp"
+      
+      @touchstart="handleTouchStart"
+      @touchmove="handleTouchMove"
+      @tuochend="handleTouchEnd"
     )
     input(
       type="range"
-      min="1"
+      min="0"
       :max="imgsNum"
       step="1"
       :value="currentIndex"
-      :class="rangeClass"
+      :class="range.class"
       @input="handleRange"
-      v-if="showRange"
+      v-if="range.enable"
     )
 
 </template>
@@ -33,9 +34,9 @@ export default {
   name: 'VueProductSpinner',
 
   props: {
-    imgs:       Array,
-    showRange:  Boolean,
-    rangeClass: String
+    imgs:  Array,
+    range: Object,
+    mode:  Array
   },
 
   data() {
@@ -56,16 +57,26 @@ export default {
   },
 
   mounted() {
-    this.bounds.width  = this.$refs.mainDiv.clientWidth
+    this.bounds.width = this.$refs.mainDiv.clientWidth
+    this.$refs.mainDiv.addEventListener('mousewheel', this.handleWheel, false)
+    this.$refs.mainDiv.addEventListener("DOMMouseScroll", this.handleWheel, false)
+
+  },
+
+  destroyed() {    
+    this.$refs.mainDiv.removeEventListener('mousewheel', this.handleWheel)
+    this.$refs.mainDiv.removeEventListener("DOMMouseScroll", this.handleWheel)
   },
 
   computed: {
     imgsNum() {
       return this.imgs.length
     },
+
     pixelPerFrame() {
       return Math.floor(this.bounds.width / (this.imgsNum / 2))
     },
+
     currentImg() {
       return this.imgs[this.currentIndex]
     }
@@ -84,11 +95,22 @@ export default {
     },
 
     handleMouseMove(event) {
-      if (!this.capture.enabled) {
-        return
+      if (!this.capture.enabled) return
+
+      this.drag.x        = event.x
+      const startPoint   = this.capture.start
+      const currentPoint = this.drag.x
+
+      if (startPoint === currentPoint) return
+
+      const shouldMove = (this.currentIndex >= 0 && this.currentIndex <= this.imgsNum)
+
+      if (currentPoint - startPoint > this.pixelPerFrame) {
+        shouldMove && this.currentIndex++
+      } else {
+        shouldMove && this.currentIndex--
       }
-      this.drag.x = event.x
-      this.computeCurrentImage()
+
     },
 
     handleTouchStart(event) {
@@ -106,21 +128,23 @@ export default {
         return
       }
       this.drag.x = event.touches[0].clientX
+      this.computeCurrentImage()
+    },
+
+    handleWheel(event) {
+      let delta = Math.max(-1, Math.min(1, (event.wheelDelta || -event.detail)))
+      this.currentIndex += delta
+      this.currentIndex = Math.min(Math.max(this.currentIndex, 0), this.imgsNum);
     },
 
     computeCurrentImage() {
-      const limit        = this.imgsNum
-      const range        = Math.floor(this.bounds.width / (this.capture.start - this.drag.x))
-      const index        = Math.floor(limit / (this.bounds.width / this.drag.x))
-      
-      console.log(this.capture.start - this.drag.x)
-    
-      this.currentIndex = index >= 52 ? 51 : index
-
+      const limit       = this.imgsNum
+      const index       = Math.floor(limit / (this.bounds.width / this.drag.x))
+      this.currentIndex = index >= limit ? limit - 1 : index
     },
 
     handleRange(ev) {
-      return this.currentIndex = ev.target.value - 1
+      return this.currentIndex = ev.target.value
     }
 
   }
